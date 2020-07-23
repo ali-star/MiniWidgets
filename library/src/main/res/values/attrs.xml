@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MiniButton">
+        <attr name="miniButtonWidth" format="dimension"/>
+        <attr name="miniButtonHeight" format="dimension"/>
+        <attr name="miniButtonSetText" format="string"/>
+        <attr name="miniButtonTextColor" format="color"/>
+        <attr name="miniButtonTextSize" format="dimension"/>
+        <attr name="miniButtonRippleColor" format="color"/>
+        <attr name="miniButtonBackgroundColor" format="color"/>
+        <attr name="miniButtonShadowColor" format="color"/>
+        <attr name="miniButtonShadowSize" format="dimension"/>
+        <attr name="miniButtonShadowDy" format="dimension"/>
+        <attr name="miniButtonIcon" format="reference"/>
+        <attr name="miniButtonIconColor" format="color"/>
+        <attr name="miniButtonIconSize" format="dimension"/>
+        <attr name="miniButtonCornerRadius" format="dimension"/>
+        <attr name="miniButtonStrokeColor" format="color"/>
+        <attr name="miniButtonStrokeWidth" format="dimension"/>
+        <attr name="miniButtonTypeface" format="string"/>
+        <attr name="miniButtonLabelTypeface" format="string"/>
+        <attr name="miniButtonSetLabel" format="string"/>
+        <attr name="miniButtonLabelSize" format="dimension"/>
+        <attr name="miniButtonOpen" format="boolean"/>
+        <attr name="miniButtonAllowFastClick" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="SVGImageView">
+        <attr name="siv_src" format="reference" />
+        <attr name="siv_srcColor" format="color" />
+        <attr name="siv_srcShadowRadius" format="dimension" />
+        <attr name="siv_srcGradientStartColor" format="color"/>
+        <attr name="siv_srcGradientEndColor" format="color"/>
+        <attr name="siv_srcGradientStart" format="enum">
+            <enum name="Top" value="0"/>
+            <enum name="Right" value="1"/>
+            <enum name="Bottom" value="2"/>
+            <enum name="Left" value="3"/>
+            <enum name="TopLeft" value="4"/>
+            <enum name="TopRight" value="5"/>
+            <enum name="BottomLeft" value="6"/>
+            <enum name="BottomRight" value="7"/>
+        </attr>
+
+        <attr name="srcGradientEnd" format="enum">
+            <enum name="Top" value="0"/>
+            <enum name="Right" value="1"/>
+            <enum name="Bottom" value="2"/>
+            <enum name="Left" value="3"/>
+            <enum name="TopLeft" value="4"/>
+            <enum name="TopRight" value="5"/>
+            <enum name="BottomLeft" value="6"/>
+            <enum name="BottomRight" value="7"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="LoadingView">
+        <attr name="lv_backgroundStrokeWidth" format="dimension"/>
+        <attr name="lv_progressStrokeWidth" format="dimension"/>
+        <attr name="lv_progressColor" format="color"/>
+        <attr name="lv_backgroundStrokeColor" format="color"/>
+        <attr name="lv_mode" format="enum">
+            <enum name="loading" value="0"/>
+            <enum name="progress" value="1"/>
+        </attr>
+    </declare-styleable>
+    
+</resources>

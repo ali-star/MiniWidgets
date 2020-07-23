@@ -1,4 +1,4 @@
-package alistar.minibutton
+package alistar.miniwidgets
 
 import org.junit.Test
 
