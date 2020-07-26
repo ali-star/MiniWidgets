@@ -3,4 +3,38 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="lightBlue">#9FCDE7</color>
+    <color name="lightBlue_30">#3D9FCDE7</color>
+
+    <color name="dark">#222222</color>
+
+    <color name="black">#000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_05">#1A000000</color>
+
+    <color name="white_05">#0DFFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_15">#26FFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_25">#40FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_35">#59FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_45">#73FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_55">#8CFFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_65">#A6FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_75">#BFFFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_85">#D9FFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
+    <color name="white_95">#F2FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="lightGreen">#93B38B</color>
+    <color name="lightGreen_40">#6693B38B</color>
+
 </resources>

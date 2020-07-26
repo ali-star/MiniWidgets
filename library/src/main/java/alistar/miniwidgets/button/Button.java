@@ -12,6 +12,8 @@ public interface Button {
 
     void setColor(int color);
 
+    int getColor();
+
     void setTypeface(Typeface typeface);
 
     void setTextSize(int textSize);
@@ -31,6 +33,8 @@ public interface Button {
     void setIconSize(int iconSize);
 
     void setIconColor(int iconColor);
+
+    int getIconColor();
 
     void setShadowColor(int shadowColor);
 

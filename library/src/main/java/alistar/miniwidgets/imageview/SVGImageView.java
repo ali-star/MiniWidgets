@@ -10,11 +10,8 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
-
 import androidx.annotation.Nullable;
-
 import java.util.List;
-
 import alistar.miniwidgets.R;
 
 public class SVGImageView extends View {
@@ -54,7 +51,7 @@ public class SVGImageView extends View {
         startColor = typedArray.getColor(R.styleable.SVGImageView_siv_srcGradientStartColor, 0);
         endColor = typedArray.getColor(R.styleable.SVGImageView_siv_srcGradientEndColor, 0);
         start = typedArray.getInt(R.styleable.SVGImageView_siv_srcGradientStart, start);
-        end = typedArray.getInt(R.styleable.SVGImageView_srcGradientEnd, end);
+        end = typedArray.getInt(R.styleable.SVGImageView_siv_srcGradientEnd, end);
         typedArray.recycle();
     }
 
@@ -108,21 +105,22 @@ public class SVGImageView extends View {
         if (svgUtils == null) {
             if (svgImageRecourse != -1) {
                 svgUtils = new SvgUtils(logoPaint);
-                size = getHeight() - shadowRadius;
+                size = Math.max(getWidth(), getHeight()) - shadowRadius;
                 svgUtils.load(getContext(), svgImageRecourse);
                 paths = svgUtils.getPathsForViewport(size, size);
             }
         }
+
+        canvas.translate((getWidth() / 2) - (size / 2), (getHeight() / 2) - (size / 2));
+
         if (color == 0) {
             svgUtils.drawSvgAfter(canvas, size, size);
         } else {
-            canvas.translate((getWidth() / 2) - (size / 2), (getHeight() / 2) - (size / 2));
             for (SvgUtils.SvgPath sPath : paths) {
                 if (shadowRadius > 0)
                     canvas.drawPath(sPath.getPath(), shadowPaint);
                 canvas.drawPath(sPath.getPath(), logoPaint);
             }
-            canvas.restore();
         }
     }
 

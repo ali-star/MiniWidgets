@@ -43,7 +43,7 @@
             <enum name="BottomRight" value="7"/>
         </attr>
 
-        <attr name="srcGradientEnd" format="enum">
+        <attr name="siv_srcGradientEnd" format="enum">
             <enum name="Top" value="0"/>
             <enum name="Right" value="1"/>
             <enum name="Bottom" value="2"/>

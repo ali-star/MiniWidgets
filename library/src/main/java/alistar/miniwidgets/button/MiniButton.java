@@ -23,9 +23,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import androidx.annotation.Nullable;
-
 import alistar.miniwidgets.R;
 import alistar.miniwidgets.imageview.SVGImageView;
 import alistar.miniwidgets.loading.Loading;
@@ -413,6 +411,11 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     }
 
     @Override
+    public int getColor() {
+        return backgroundColor;
+    }
+
+    @Override
     public void setIcon(int icon) {
         this.iconReference = icon;
         if (svgImageView != null) {
@@ -670,6 +673,11 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         this.iconColor = iconColor;
         if (svgImageView != null)
             svgImageView.setColor(iconColor);
+    }
+
+    @Override
+    public int getIconColor() {
+        return iconColor;
     }
 
     @Override

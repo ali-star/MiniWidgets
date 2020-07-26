@@ -1,22 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layoutDescription="@xml/activity_main_scene">
+
+    <alistar.miniwidgets.imageview.SVGImageView
+        android:id="@+id/logoImageVIew"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:siv_src="@raw/logo_dark" />
 
     <alistar.miniwidgets.button.MiniButton
-        android:id="@+id/miniButton"
-        android:layout_width="140dp"
-        android:layout_height="74dp"
-        app:miniButtonBackgroundColor="#000000"
+        android:id="@+id/testButton"
+        android:layout_width="180dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/SVGImageView"
+        app:layout_constraintEnd_toEndOf="@id/logoImageVIew"
+        app:layout_constraintStart_toStartOf="@id/logoImageVIew"
+        app:layout_constraintTop_toBottomOf="@id/logoImageVIew"
+        app:miniButtonBackgroundColor="@color/lightBlue"
         app:miniButtonCornerRadius="-1dp"
-        app:miniButtonSetText="Mini Button"
-        app:miniButtonGlowSize="8dp"
-        app:miniButtonGlowColor="#20000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:miniButtonSetText="M i n i B u t t o n"
+        app:miniButtonShadowColor="@color/lightBlue_30"
+        app:miniButtonShadowSize="12dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="261dp" />
+
+    <alistar.miniwidgets.imageview.SVGImageView
+        android:id="@+id/SVGImageView"
+        android:layout_width="74dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/demoButtonsBase"
+        app:layout_constraintEnd_toEndOf="@id/demoButtonsBase"
+        app:layout_constraintStart_toStartOf="@id/demoButtonsBase"
+        app:siv_src="@raw/demos" />
+
+    <LinearLayout
+        android:id="@+id/demoButtonsBase"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <alistar.miniwidgets.button.MiniButton
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:miniButtonCornerRadius="12dp"
+            app:miniButtonSetText="MiniButton"
+            app:miniButtonStrokeColor="@color/black_05"
+            app:miniButtonStrokeWidth="1dp"
+            app:miniButtonTextColor="@color/dark"
+            app:miniButtonTextSize="12sp" />
+
+        <alistar.miniwidgets.button.MiniButton
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:miniButtonCornerRadius="12dp"
+            app:miniButtonSetText="SVGImageView"
+            app:miniButtonStrokeColor="@color/black_05"
+            app:miniButtonStrokeWidth="1dp"
+            app:miniButtonTextColor="@color/dark"
+            app:miniButtonTextSize="12sp" />
+
+        <alistar.miniwidgets.button.MiniButton
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:miniButtonCornerRadius="12dp"
+            app:miniButtonSetText="LoadingView"
+            app:miniButtonStrokeColor="@color/black_05"
+            app:miniButtonStrokeWidth="1dp"
+            app:miniButtonTextColor="@color/dark"
+            app:miniButtonTextSize="12sp" />
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/aboutBase"
+        android:layout_width="320dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="36dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/leaves_plant_green_136320_1920x1080" />
+
+        <View
+            android:id="@+id/colorFillView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white_30"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--<androidx.cardview.widget.CardView
+        android:id="@+id/colorFillView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="@color/white_30"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="@id/aboutBase"
+        app:layout_constraintEnd_toEndOf="@id/aboutBase"
+        app:layout_constraintTop_toTopOf="@id/aboutBase"
+        app:layout_constraintBottom_toBottomOf="@id/aboutBase"/>-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/githubButtonBase"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="42dp"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="@id/githubButton"
+        app:layout_constraintBottom_toBottomOf="@id/githubButton"
+        app:layout_constraintEnd_toEndOf="@id/githubButton"
+        app:layout_constraintTop_toTopOf="@id/githubButton" />
+
+    <alistar.miniwidgets.button.MiniButton
+        android:id="@+id/githubButton"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        app:layout_constraintBottom_toTopOf="@id/aboutBase"
+        app:layout_constraintEnd_toEndOf="@id/aboutBase"
+        app:layout_constraintTop_toTopOf="@id/aboutBase"
+        app:miniButtonBackgroundColor="@color/lightGreen"
+        app:miniButtonCornerRadius="-1dp"
+        app:miniButtonIcon="@raw/github"
+        app:miniButtonIconColor="@color/white"
+        app:miniButtonIconSize="28dp"
+        app:miniButtonShadowColor="@color/lightGreen_40"
+        app:miniButtonShadowSize="16dp" />
+
+    <alistar.miniwidgets.imageview.SVGImageView
+        android:id="@+id/aboutTextSvg"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="@id/aboutBase"
+        app:layout_constraintEnd_toEndOf="@id/aboutBase"
+        app:layout_constraintTop_toTopOf="@id/aboutBase"
+        app:layout_constraintBottom_toBottomOf="@id/aboutBase"
+        app:siv_src="@raw/about" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
