@@ -10,7 +10,6 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import androidx.annotation.Nullable;
 import java.util.List;
 import alistar.miniwidgets.R;
 
@@ -33,12 +32,12 @@ public class SVGImageView extends View {
         super(context);
     }
 
-    public SVGImageView(Context context, @Nullable AttributeSet attrs) {
+    public SVGImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(attrs);
     }
 
-    public SVGImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SVGImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(attrs);
     }
@@ -100,8 +99,8 @@ public class SVGImageView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
         if (svgUtils == null) {
             if (svgImageRecourse != -1) {
                 svgUtils = new SvgUtils(logoPaint);
@@ -110,7 +109,11 @@ public class SVGImageView extends View {
                 paths = svgUtils.getPathsForViewport(size, size);
             }
         }
+    }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         canvas.translate((getWidth() / 2) - (size / 2), (getHeight() / 2) - (size / 2));
 
         if (color == 0) {

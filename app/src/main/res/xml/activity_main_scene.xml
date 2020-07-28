@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="600">
-       <KeyFrameSet>
-       </KeyFrameSet>
-        <OnClick motion:targetId="@+id/aboutBase" />
+        <KeyFrameSet></KeyFrameSet>
+        <OnSwipe motion:touchAnchorId="@+id/aboutBase" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -18,12 +16,32 @@
             android:layout_width="320dp"
             android:layout_height="180dp"
             android:layout_marginBottom="36dp"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent">
             <CustomAttribute
                 motion:attributeName="radius"
                 motion:customDimension="32dp" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/githubButton"
+            motion:layout_constraintEnd_toEndOf="@id/aboutBase"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            motion:layout_constraintBottom_toTopOf="@id/aboutBase"
+            android:layout_marginEnd="42dp"
+            motion:layout_constraintTop_toTopOf="@id/aboutBase"
+            android:layout_marginRight="42dp"
+            android:layout_marginTop="16dp" >
+            <CustomAttribute
+                motion:attributeName="color"
+                motion:customColorValue="@color/lightGreen" />
+            <CustomAttribute
+                motion:attributeName="iconColor"
+                motion:customColorValue="@color/white" />
+            <CustomAttribute
+                motion:attributeName="shadowColor"
+                motion:customColorValue="@color/lightGreen_40" />
         </Constraint>
     </ConstraintSet>
 
@@ -33,10 +51,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             motion:cardCornerRadius="0dp"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" >
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
             <CustomAttribute
                 motion:attributeName="radius"
                 motion:customDimension="1dp" />
@@ -45,35 +63,67 @@
             android:id="@+id/aboutTextSvg"
             android:layout_width="130dp"
             android:layout_height="48dp"
+            motion:layout_constraintEnd_toEndOf="@id/aboutBase"
             motion:layout_constraintStart_toStartOf="@id/aboutBase"
-            motion:layout_constraintTop_toBottomOf="parent"
-            motion:layout_constraintEnd_toEndOf="@id/aboutBase" />
+            motion:layout_constraintTop_toBottomOf="parent" />
         <Constraint
             android:id="@+id/githubButton"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginRight="12dp"
             android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent" />
+            motion:layout_constraintEnd_toEndOf="parent">
+            <CustomAttribute
+                motion:attributeName="color"
+                motion:customColorValue="@color/white" />
+            <CustomAttribute
+                motion:attributeName="iconColor"
+                motion:customColorValue="@color/dark" />
+            <CustomAttribute
+                motion:attributeName="shadowColor"
+                motion:customColorValue="@color/black_40" />
+        </Constraint>
         <Constraint
             android:id="@+id/githubButtonBase"
             android:layout_width="1dp"
             android:layout_height="1dp"
             android:layout_marginBottom="8dp"
-            motion:layout_constraintEnd_toEndOf="@id/githubButton"
             motion:layout_constraintBottom_toBottomOf="@id/githubButton"
-            motion:layout_constraintTop_toTopOf="@id/githubButton"
-            motion:layout_constraintStart_toStartOf="@id/githubButton" />
-        <!--<Constraint
-            android:id="@+id/colorFillView"
+            motion:layout_constraintEnd_toEndOf="@id/githubButton"
+            motion:layout_constraintStart_toStartOf="@id/githubButton"
+            motion:layout_constraintTop_toTopOf="@id/githubButton" />
+        <Constraint
+            android:id="@+id/infoBase"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:alpha="1"
+            motion:layout_constraintBottom_toTopOf="@id/githubButton"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/darkLogoImageVIew" />
+        <Constraint
+            android:id="@+id/darkLogoImageVIew"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:alpha="0"
-            motion:layout_constraintEnd_toEndOf="@id/aboutBase"
-            motion:layout_constraintBottom_toBottomOf="@id/aboutBase"
-            motion:layout_constraintTop_toTopOf="@id/aboutBase"
-            motion:layout_constraintStart_toStartOf="@id/aboutBase" />-->
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="36dp" />
+        <Constraint
+            android:id="@+id/lightLogoImageVIew"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:alpha="1"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="36dp" />
     </ConstraintSet>
 </MotionScene>

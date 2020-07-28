@@ -1,5 +1,8 @@
 # MiniWidgets
 
+MiniWidgets are a set of widgets with many customization features to cover most of what you want to create.
+This library is written in java so you can use it with java and kotlin projects.
+
 ### License
 ```
 Copyright 2020 Ali Mohseni Rad 'ali-star'

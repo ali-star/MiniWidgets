@@ -12,9 +12,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-
-import androidx.annotation.Nullable;
-
 import alistar.miniwidgets.R;
 import alistar.miniwidgets.utils.CircOutInterpolator;
 import alistar.miniwidgets.utils.Utils;
@@ -46,12 +43,12 @@ public class LoadingView extends View implements Loading {
         init(null);
     }
 
-    public LoadingView(Context context, @Nullable AttributeSet attrs) {
+    public LoadingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public LoadingView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
@@ -253,7 +250,6 @@ public class LoadingView extends View implements Loading {
         invalidate();
     }
 
-    @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();

@@ -23,7 +23,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import androidx.annotation.Nullable;
 import alistar.miniwidgets.R;
 import alistar.miniwidgets.imageview.SVGImageView;
 import alistar.miniwidgets.loading.Loading;
@@ -366,7 +365,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     }
 
     @Override
-    public void setOnLongClickListener(@Nullable View.OnLongClickListener l) {
+    public void setOnLongClickListener(View.OnLongClickListener l) {
         isLongCLickListenerSet = true;
         super.setOnLongClickListener(l);
     }
@@ -388,6 +387,8 @@ public class MiniButton extends FrameLayout implements Button, Loading {
 
     @Override
     public void changeColor(int color) {
+        if (changeColorAnimator != null && changeColorAnimator.isRunning())
+            changeColorAnimator.cancel();
         changeColorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), backgroundColor, color);
         changeColorAnimator.setDuration(250);
         changeColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -719,7 +720,6 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         invalidate();
     }
 
-    @Nullable
     @Override
     public Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
