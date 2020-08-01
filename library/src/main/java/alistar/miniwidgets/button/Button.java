@@ -44,11 +44,15 @@ public interface Button {
 
     int getShadowSize();
 
+    void setShadowDy(int shadowDy);
+
+    int getShadowDy();
+
     void changeColor(int fromColor, int toColor);
 
     void changeColor(int color);
 
-    void setStrokeWidth(int strokeWidth);
+    void setStrokeSize(int strokeSize);
 
     boolean isOpen();
 

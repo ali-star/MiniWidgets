@@ -40,7 +40,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     private RectF animationRectF = new RectF();
     private Rect rect = new Rect();
     private int shadowSize = 0;
-    private int shadowY = Utils.dipToPix(4);
+    private int shadowDy = Utils.dipToPix(4);
     private int textSize = Utils.spToPix(14);
     private int textColor = Color.parseColor("#222222");
     private int cornerRadius = Utils.dipToPix(8);
@@ -56,7 +56,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     private int shadowColor = Color.parseColor("#4Dfe3249");
     private int iconReference = 0;
     private SVGImageView svgImageView;
-    private int strokeWidth = 0;
+    private int strokeSize = 0;
     private int strokeColor = Color.BLACK;
     private int iconColor = Color.BLACK;
     private int iconSize = Utils.dipToPix(36);
@@ -120,10 +120,10 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         iconReference = typedArray.getResourceId(R.styleable.MiniButton_miniButtonIcon, 0);
         shadowSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonShadowSize, 0);
         strokeColor = typedArray.getColor(R.styleable.MiniButton_miniButtonStrokeColor, strokeColor);
-        strokeWidth = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonStrokeWidth, strokeWidth);
+        strokeSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonStrokeWidth, strokeSize);
         iconSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonIconSize, iconSize);
         iconColor = typedArray.getColor(R.styleable.MiniButton_miniButtonIconColor, Color.WHITE);
-        shadowY = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonShadowDy, Utils.dipToPix(4));
+        shadowDy = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonShadowDy, Utils.dipToPix(4));
         allowFastClick = typedArray.getBoolean(R.styleable.MiniButton_miniButtonAllowFastClick, false);
 
         if (typedArray.getBoolean(R.styleable.MiniButton_miniButtonOpen, true))
@@ -144,14 +144,14 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         shadowPaint.setAntiAlias(true);
         shadowPaint.setColor(backgroundColor);
         if (shadowSize > 0)
-            shadowPaint.setShadowLayer(shadowSize, 0, shadowY, shadowColor);
+            shadowPaint.setShadowLayer(shadowSize, 0, shadowDy, shadowColor);
         else
-            shadowY = 0;
+            shadowDy = 0;
 
         strokePaint.setAntiAlias(true);
         strokePaint.setColor(strokeColor);
         strokePaint.setStyle(Paint.Style.STROKE);
-        strokePaint.setStrokeWidth(strokeWidth);
+        strokePaint.setStrokeWidth(strokeSize);
 
         textPaint.setAntiAlias(true);
         textPaint.setStyle(Paint.Style.FILL);
@@ -170,14 +170,22 @@ public class MiniButton extends FrameLayout implements Button, Loading {
             addView(svgImageView);
         }
 
-        setPadding(shadowSize + strokeWidth, (shadowSize - shadowY) + strokeWidth, shadowSize + strokeWidth, shadowSize + shadowY + strokeWidth);
+        if (shadowSize != 0)
+            setPadding(shadowSize + strokeSize, (shadowSize - shadowDy) + strokeSize, shadowSize + strokeSize, shadowSize + shadowDy + strokeSize);
+        else
+            setPadding(strokeSize, strokeSize, strokeSize, strokeSize);
+
     }
 
     @Override
     public void draw(Canvas canvas) {
         float with = getWidth();
         float height = getHeight();
-        baseRectF.set(shadowSize + strokeWidth, (shadowSize - shadowY) + strokeWidth, with - (shadowSize + strokeWidth), height - (shadowSize + shadowY + strokeWidth));
+
+        if (shadowSize != 0)
+            baseRectF.set(shadowSize + strokeSize, (shadowSize - shadowDy) + strokeSize, with - (shadowSize + strokeSize), height - (shadowSize + shadowDy + strokeSize));
+        else
+            baseRectF.set(strokeSize, strokeSize, with - strokeSize, height - (strokeSize));
 
         float left = 0;
         float right = with;
@@ -206,7 +214,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         if (text != null)
             Utils.drawCenterText(text, rect, baseRectF.left, baseRectF.top, canvas, textPaint);
 
-        if (strokeWidth > 0)
+        if (strokeSize > 0)
             canvas.drawPath(path, strokePaint);
 
         if (showDot)
@@ -450,7 +458,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     @Override
     public void setShadowColor(int shadowColor) {
         this.shadowColor = shadowColor;
-        shadowPaint.setShadowLayer(shadowSize, 0, shadowY, shadowColor);
+        shadowPaint.setShadowLayer(shadowSize, 0, shadowDy, shadowColor);
         invalidate();
     }
 
@@ -664,9 +672,20 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     @Override
     public void setShadowSize(int shadowSize) {
         this.shadowSize = shadowSize;
-        shadowY = shadowSize != 0 ? shadowSize / 3 : Utils.dipToPix(4);
-        shadowPaint.setShadowLayer(shadowSize, 0, shadowY, shadowColor);
+        shadowPaint.setShadowLayer(shadowSize, 0, shadowDy, shadowColor);
         invalidate();
+    }
+
+    @Override
+    public void setShadowDy(int shadowDy) {
+        this.shadowDy = shadowDy;
+        shadowPaint.setShadowLayer(shadowSize, 0, shadowDy, shadowColor);
+        invalidate();
+    }
+
+    @Override
+    public int getShadowDy() {
+        return shadowDy;
     }
 
     @Override
@@ -682,9 +701,9 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     }
 
     @Override
-    public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = strokeWidth;
-        strokePaint.setStrokeWidth(strokeWidth);
+    public void setStrokeSize(int strokeSize) {
+        this.strokeSize = strokeSize;
+        strokePaint.setStrokeWidth(strokeSize);
         invalidate();
     }
 
@@ -727,13 +746,13 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         bundle.putInt("backgroundColor", backgroundColor);
         bundle.putInt("shadowColor", shadowColor);
         bundle.putInt("iconReference", iconReference);
-        bundle.putInt("strokeWidth", strokeWidth);
+        bundle.putInt("strokeWidth", strokeSize);
         bundle.putInt("strokeColor", strokeColor);
         bundle.putInt("iconColor", iconColor);
         bundle.putInt("iconSize", iconSize);
         bundle.putInt("rippleColor", rippleColor);
         bundle.putInt("shadowSize", shadowSize);
-        bundle.putInt("shadowY", shadowY);
+        bundle.putInt("shadowY", shadowDy);
         bundle.putInt("textSize", textSize);
         bundle.putInt("textColor", textColor);
         bundle.putInt("cornerRadius", cornerRadius);
@@ -750,13 +769,13 @@ public class MiniButton extends FrameLayout implements Button, Loading {
             backgroundColor = bundle.getInt("backgroundColor");
             shadowColor = bundle.getInt("shadowColor");
             iconReference = bundle.getInt("iconReference");
-            strokeWidth = bundle.getInt("strokeWidth");
+            strokeSize = bundle.getInt("strokeWidth");
             strokeColor = bundle.getInt("strokeColor");
             iconColor = bundle.getInt("iconColor");
             iconSize = bundle.getInt("iconSize");
             rippleColor = bundle.getInt("rippleColor");
             shadowSize = bundle.getInt("shadowSize");
-            shadowY = bundle.getInt("shadowY");
+            shadowDy = bundle.getInt("shadowY");
             textSize = bundle.getInt("textSize");
             textColor = bundle.getInt("textColor");
             cornerRadius = bundle.getInt("cornerRadius");
