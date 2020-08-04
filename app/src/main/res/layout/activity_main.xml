@@ -106,6 +106,7 @@
                 app:miniButtonTextSize="12sp" />
 
             <alistar.miniwidgets.button.MiniButton
+                android:id="@+id/miniButtonDemo"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"

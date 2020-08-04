@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 infoTextView.requestLayout()
             }
 
-            svgImageViewDemoButton.setOnClickListener {
+            miniButtonDemo.setOnClickListener {
                 val point = it.getPointOnScreen()
                 supportFragmentManager.beginTransaction().add(
                     R.id.fragmentContainer,
