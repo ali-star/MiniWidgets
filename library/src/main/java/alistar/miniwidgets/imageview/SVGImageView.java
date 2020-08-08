@@ -9,37 +9,38 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import java.util.List;
 import alistar.miniwidgets.R;
 
 public class SVGImageView extends View {
 
-    private int startColor = 0;
-    private int endColor = 0;
+    private int gradientStartColor = 0;
+    private int gradientEndColor = 0;
     private int svgImageRecourse = -1;
     private SvgUtils svgUtils;
     private List<SvgUtils.SvgPath> paths;
-    private Paint logoPaint = new Paint();
+    private Paint svgPaint = new Paint();
     private Paint shadowPaint = new Paint();
     private int size = -1;
     private int color = 0;
     private int shadowRadius = 0;
     private int start = 0, end = 2;
-    private Shader shader;
 
     public SVGImageView(Context context) {
         super(context);
+        init();
     }
 
     public SVGImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(attrs);
+        init();
     }
 
     public SVGImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(attrs);
+        init();
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -47,32 +48,24 @@ public class SVGImageView extends View {
         svgImageRecourse = typedArray.getResourceId(R.styleable.SVGImageView_siv_src, 0);
         shadowRadius = typedArray.getDimensionPixelSize(R.styleable.SVGImageView_siv_srcShadowRadius, 0);
         color = typedArray.getColor(R.styleable.SVGImageView_siv_srcColor, 0);
-        startColor = typedArray.getColor(R.styleable.SVGImageView_siv_srcGradientStartColor, 0);
-        endColor = typedArray.getColor(R.styleable.SVGImageView_siv_srcGradientEndColor, 0);
+        gradientStartColor = typedArray.getColor(R.styleable.SVGImageView_siv_srcGradientStartColor, 0);
+        gradientEndColor = typedArray.getColor(R.styleable.SVGImageView_siv_srcGradientEndColor, 0);
         start = typedArray.getInt(R.styleable.SVGImageView_siv_srcGradientStart, start);
         end = typedArray.getInt(R.styleable.SVGImageView_siv_srcGradientEnd, end);
         typedArray.recycle();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        init();
-        if (startColor != 0) {
-            getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    int[] startXY = getXY(start);
-                    int[] endXY = getXY(end);
-                    shader = new LinearGradient(startXY[0], startXY[1], endXY[0], endXY[1], startColor, endColor, Shader.TileMode.CLAMP);
-                    logoPaint.setShader(shader);
-                    logoPaint.setAntiAlias(true);
-                    logoPaint.setStyle(Paint.Style.FILL);
-                    return true;
-                }
-            });
-        }
-        invalidate();
+    private void init() {
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+        svgPaint.setAntiAlias(true);
+        svgPaint.setStyle(Paint.Style.FILL);
+        if (color != 0)
+            svgPaint.setColor(color);
+        if (shadowRadius > 0)
+            shadowPaint.setShadowLayer(shadowRadius, 0, shadowRadius / 2f, Color.parseColor("#50000000"));
+
+        shadowPaint.setAntiAlias(true);
+        shadowPaint.setStyle(Paint.Style.FILL);
     }
 
     @Override
@@ -85,25 +78,15 @@ public class SVGImageView extends View {
         }
     }
 
-    private void init() {
-        setLayerType(LAYER_TYPE_SOFTWARE, null);
-        logoPaint.setAntiAlias(true);
-        logoPaint.setStyle(Paint.Style.FILL);
-        if (color != 0)
-            logoPaint.setColor(color);
-        if (shadowRadius > 0)
-            shadowPaint.setShadowLayer(shadowRadius, 0, shadowRadius / 2, Color.parseColor("#50000000"));
-
-        shadowPaint.setAntiAlias(true);
-        shadowPaint.setStyle(Paint.Style.FILL);
-    }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
+        setGradientShader();
+
         if (svgUtils == null) {
             if (svgImageRecourse != -1) {
-                svgUtils = new SvgUtils(logoPaint);
+                svgUtils = new SvgUtils(svgPaint);
                 size = Math.max(getWidth(), getHeight()) - shadowRadius;
                 svgUtils.load(getContext(), svgImageRecourse);
                 paths = svgUtils.getPathsForViewport(size, size);
@@ -111,18 +94,30 @@ public class SVGImageView extends View {
         }
     }
 
+    private void setGradientShader() {
+        if (gradientStartColor != 0 && gradientEndColor != 0) {
+            int[] startXY = getXY(start);
+            int[] endXY = getXY(end);
+            Shader shader = new LinearGradient(startXY[0], startXY[1], endXY[0], endXY[1],
+                    gradientStartColor, gradientEndColor, Shader.TileMode.CLAMP);
+            svgPaint.setShader(shader);
+            svgPaint.setAntiAlias(true);
+            svgPaint.setStyle(Paint.Style.FILL);
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.translate((getWidth() / 2) - (size / 2), (getHeight() / 2) - (size / 2));
+        canvas.translate(getWidth() / 2f - size / 2f, getHeight() / 2f - size / 2f);
 
-        if (color == 0) {
+        if (color == 0 && gradientStartColor == 0 && gradientEndColor == 0) {
             svgUtils.drawSvgAfter(canvas, size, size);
         } else {
             for (SvgUtils.SvgPath sPath : paths) {
                 if (shadowRadius > 0)
                     canvas.drawPath(sPath.getPath(), shadowPaint);
-                canvas.drawPath(sPath.getPath(), logoPaint);
+                canvas.drawPath(sPath.getPath(), svgPaint);
             }
         }
     }
@@ -132,7 +127,7 @@ public class SVGImageView extends View {
         if (size != -1) {
             if (paths != null)
                 paths.clear();
-            svgUtils = new SvgUtils(logoPaint);
+            svgUtils = new SvgUtils(svgPaint);
             svgUtils.load(getContext(), svgImageRecourse);
             paths = svgUtils.getPathsForViewport(size, size);
             invalidate();
@@ -141,7 +136,32 @@ public class SVGImageView extends View {
 
     public void setColor(int color) {
         this.color = color;
-        logoPaint.setColor(color);
+        svgPaint.setShader(null);
+        svgPaint.setColor(color);
+        invalidate();
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public int getGradientStartColor() {
+        return gradientStartColor;
+    }
+
+    public void setGradientStartColor(int gradientStartColor) {
+        this.gradientStartColor = gradientStartColor;
+        setGradientShader();
+        invalidate();
+    }
+
+    public int getGradientEndColor() {
+        return gradientEndColor;
+    }
+
+    public void setGradientEndColor(int gradientEndColor) {
+        this.gradientEndColor = gradientEndColor;
+        setGradientShader();
         invalidate();
     }
 
