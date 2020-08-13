@@ -79,6 +79,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <alistar.miniwidgets.button.MiniButton
+                android:id="@+id/miniButtonDemo"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -90,7 +91,7 @@
                 app:miniButtonTextSize="12sp" />
 
             <alistar.miniwidgets.button.MiniButton
-                android:id="@+id/svg_image_view_demo_button"
+                android:id="@+id/svgImageViewDemoButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
@@ -106,7 +107,7 @@
                 app:miniButtonTextSize="12sp" />
 
             <alistar.miniwidgets.button.MiniButton
-                android:id="@+id/miniButtonDemo"
+                android:id="@+id/loadingViewDemoButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"

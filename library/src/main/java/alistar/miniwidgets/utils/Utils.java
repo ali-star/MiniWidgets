@@ -17,6 +17,16 @@ public class Utils {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    public static float pixToDip(float dp) {
+        if (dp == 0) return 0;
+        return dp / Resources.getSystem().getDisplayMetrics().density;
+    }
+
+    public static int pixToDip(int dp) {
+        if (dp == 0) return 0;
+        return (int) (dp / Resources.getSystem().getDisplayMetrics().density);
+    }
+
     public static int spToPix(float sp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem()
                 .getDisplayMetrics());

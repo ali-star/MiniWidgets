@@ -11,19 +11,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import kotlin.math.abs
 
-class SVGImageViewDemoFragment : Fragment() {
-
-    var circleX: Int = 0
-    var circleY: Int = 0
+class SVGImageViewDemoFragment : DemoFragment() {
 
     private var binding: SvgImageViewDemoFragmentBinding? = null
 
     companion object {
         fun newInstance(circleX: Int, circleY: Int): SVGImageViewDemoFragment {
-            val fragment =
-                SVGImageViewDemoFragment()
+            val fragment = SVGImageViewDemoFragment()
             fragment.circleX = circleX
             fragment.circleY = circleY
             return fragment
@@ -37,17 +35,7 @@ class SVGImageViewDemoFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.svg_image_view_demo_fragment, container, false)
         binding = SvgImageViewDemoFragmentBinding.bind(view).apply {
-            circle.post {
-                circle.x = circleX.toFloat() - (circle.width / 2)
-                circle.y = circleY.toFloat() - (circle.height / 2)
-                val alphaAnimator = ObjectAnimator.ofFloat(circle, "alpha", 0f, 1f).setDuration(200)
-                val scaleXAnimator = ObjectAnimator.ofFloat(circle, "scaleX", 0f, 30f).setDuration(700)
-                val scaleYAnimator = ObjectAnimator.ofFloat(circle, "scaleY", 0f, 30f).setDuration(700)
-                val animatorSet = AnimatorSet()
-                animatorSet.interpolator = CircOutInterpolator()
-                animatorSet.playTogether(alphaAnimator, scaleXAnimator, scaleYAnimator)
-                animatorSet.start()
-            }
+                startOpenAnimation(circle, contentsLayout)
 
             greenGradientButton.setOnClickListener {
                 SVGImageView.gradientStartColor = Color.parseColor("#4AD4C9")
@@ -94,30 +82,70 @@ class SVGImageViewDemoFragment : Fragment() {
                 SVGImageView.color = Color.parseColor("#455077")
             }
 
-            contentsLayout.alpha = 0f
-            contentsLayout.post {
-                val alphaAnimator = ObjectAnimator.ofFloat(contentsLayout, "alpha", 0f, 1f).apply {
-                    duration = 500
-                    startDelay = 300
-                }
+            shadowRadiusSeekBar.apply {
+                max = 24
+                setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        SVGImageView.shadowRadius = Utils.dipToPix(progress)
+                    }
 
-                val currentY = contentsLayout.y
-                val xAnimator = ObjectAnimator.ofFloat(contentsLayout, "y", currentY + Utils.dipToPix(24), currentY).apply {
-                    duration = 500
-                    startDelay = 300
-                }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-                val animatorSet = AnimatorSet()
-                animatorSet.playTogether(alphaAnimator, xAnimator)
-                animatorSet.interpolator = CircOutInterpolator()
-                animatorSet.start()
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+                })
+            }
+
+
+            val shadowDxMin = -24
+            val shadowDxMax = 24
+            shadowDxSeekBar.apply {
+                max = abs(shadowDxMin) + abs(shadowDxMax)
+                progress = max / 2
+                setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        val value = shadowDxMin + progress
+                        SVGImageView.shadowDx = Utils.dipToPix(value)
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+                })
+            }
+
+            val shadowDyMin = -24
+            val shadowDyMax = 24
+            shadowDySeekBar.apply {
+                max = abs(shadowDyMin) + abs(shadowDyMax)
+                progress = max / 2
+                setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        val value = shadowDyMin + progress
+                        SVGImageView.shadowDy = Utils.dipToPix(value)
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+                })
             }
         }
         return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onDestroyView() {

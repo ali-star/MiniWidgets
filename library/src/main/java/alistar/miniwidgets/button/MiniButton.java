@@ -487,6 +487,11 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     }
 
     @Override
+    public float getProgress() {
+        return loadingView.getProgress();
+    }
+
+    @Override
     public void setRotationAnimation(boolean rotationAnimation) {
         loadingView.setRotationAnimation(rotationAnimation);
     }
@@ -542,8 +547,38 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     }
 
     @Override
+    public int getProgressColor() {
+        return loadingView.getProgressColor();
+    }
+
+    @Override
     public void setBackgroundStrokeColor(int backgroundStrokeColor) {
         loadingView.setBackgroundStrokeColor(backgroundStrokeColor);
+    }
+
+    @Override
+    public int getBackgroundStrokeColor() {
+        return loadingView.getBackgroundStrokeColor();
+    }
+
+    @Override
+    public void setBackgroundStrokeWidth(float backgroundStrokeWidth) {
+        loadingView.setBackgroundStrokeWidth(backgroundStrokeWidth);
+    }
+
+    @Override
+    public float getBackgroundStrokeWidth() {
+        return loadingView.getBackgroundStrokeWidth();
+    }
+
+    @Override
+    public void setProgressStrokeWidth(float progressStrokeWidth) {
+        loadingView.setProgressStrokeWidth(progressStrokeWidth);
+    }
+
+    @Override
+    public float getProgressStrokeWidth() {
+        return loadingView.getProgressStrokeWidth();
     }
 
     @Override

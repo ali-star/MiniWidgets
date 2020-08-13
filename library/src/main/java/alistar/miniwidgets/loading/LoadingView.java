@@ -92,7 +92,11 @@ public class LoadingView extends View implements Loading {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        float min = Math.min(w, h);
+        initSize();
+    }
+
+    private void initSize() {
+        float min = Math.min(getWidth(), getHeight());
         float highStroke = Math.max(progressStrokeWidth, backgroundStrokeWidth);
         rectF.set(0 + highStroke / 2, 0 + highStroke / 2, min - highStroke / 2, min - highStroke / 2);
     }
@@ -108,6 +112,11 @@ public class LoadingView extends View implements Loading {
     @Override
     public void setProgress(float progress) {
         setProgress(progress, true);
+    }
+
+    @Override
+    public float getProgress() {
+        return (int) progress;
     }
 
     private void setProgress(float progress, boolean changeRotationAnimation) {
@@ -161,9 +170,13 @@ public class LoadingView extends View implements Loading {
 
     @Override
     public void setLoading(boolean loading) {
-        setProgress(25, false);
-        mode = Mode.LOADING;
-        setRotationAnimation(true);
+        if (loading) {
+            setProgress(25, false);
+            mode = Mode.LOADING;
+            setRotationAnimation(true);
+        } else {
+            setProgress(progress);
+        }
     }
 
     @Override
@@ -232,22 +245,46 @@ public class LoadingView extends View implements Loading {
     }
 
     @Override
+    public int getProgressColor() {
+        return progressColor;
+    }
+
+    @Override
     public void setBackgroundStrokeColor(int backgroundStrokeColor) {
         this.backgroundStrokeColor = backgroundStrokeColor;
         backgroundStrokePaint.setColor(backgroundStrokeColor);
         invalidate();
     }
 
+    @Override
+    public int getBackgroundStrokeColor() {
+        return backgroundStrokeColor;
+    }
+
+    @Override
     public void setBackgroundStrokeWidth(float backgroundStrokeWidth) {
         this.backgroundStrokeWidth = backgroundStrokeWidth;
         backgroundStrokePaint.setStrokeWidth(backgroundStrokeWidth);
+        initSize();
         invalidate();
     }
 
+    @Override
+    public float getBackgroundStrokeWidth() {
+        return backgroundStrokeWidth;
+    }
+
+    @Override
     public void setProgressStrokeWidth(float progressStrokeWidth) {
         this.progressStrokeWidth = progressStrokeWidth;
         progressStrokePaint.setStrokeWidth(progressStrokeWidth);
+        initSize();
         invalidate();
+    }
+
+    @Override
+    public float getProgressStrokeWidth() {
+        return progressStrokeWidth;
     }
 
     @Override
