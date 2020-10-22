@@ -25,13 +25,13 @@
                 android:id="@+id/testButton"
                 android:layout_width="180dp"
                 android:layout_height="84dp"
-                app:miniButtonBackgroundColor="@color/lightBlue"
-                app:miniButtonCornerRadius="-1dp"
+                app:mb_BackgroundColor="@color/lightBlue"
+                app:mb_CornerRadius="-1dp"
                 android:layout_gravity="center"
                 android:visibility="invisible"
-                app:miniButtonSetText="M i n i B u t t o n"
-                app:miniButtonShadowColor="@color/lightBlue_30"
-                app:miniButtonShadowSize="12dp" />
+                app:mb_SetText="M i n i B u t t o n"
+                app:mb_ShadowColor="@color/lightBlue_30"
+                app:mb_ShadowSize="12dp" />
 
             <alistar.miniwidgets.loading.LoadingView
                 android:id="@+id/loadingView"
@@ -83,12 +83,12 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                app:miniButtonCornerRadius="12dp"
-                app:miniButtonSetText="MiniButton"
-                app:miniButtonStrokeColor="@color/black_05"
-                app:miniButtonStrokeWidth="1dp"
-                app:miniButtonTextColor="@color/dark"
-                app:miniButtonTextSize="12sp" />
+                app:mb_CornerRadius="12dp"
+                app:mb_SetText="MiniButton"
+                app:mb_StrokeColor="@color/black_05"
+                app:mb_StrokeWidth="1dp"
+                app:mb_TextColor="@color/dark"
+                app:mb_TextSize="12sp" />
 
             <alistar.miniwidgets.button.MiniButton
                 android:id="@+id/svgImageViewDemoButton"
@@ -99,24 +99,24 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                app:miniButtonCornerRadius="12dp"
-                app:miniButtonSetText="SVGImageView"
-                app:miniButtonStrokeColor="@color/black_05"
-                app:miniButtonStrokeWidth="1dp"
-                app:miniButtonTextColor="@color/dark"
-                app:miniButtonTextSize="12sp" />
+                app:mb_CornerRadius="12dp"
+                app:mb_SetText="SVGImageView"
+                app:mb_StrokeColor="@color/black_05"
+                app:mb_StrokeWidth="1dp"
+                app:mb_TextColor="@color/dark"
+                app:mb_TextSize="12sp" />
 
             <alistar.miniwidgets.button.MiniButton
                 android:id="@+id/loadingViewDemoButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                app:miniButtonCornerRadius="12dp"
-                app:miniButtonSetText="LoadingView"
-                app:miniButtonStrokeColor="@color/black_05"
-                app:miniButtonStrokeWidth="1dp"
-                app:miniButtonTextColor="@color/dark"
-                app:miniButtonTextSize="12sp" />
+                app:mb_CornerRadius="12dp"
+                app:mb_SetText="LoadingView"
+                app:mb_StrokeColor="@color/black_05"
+                app:mb_StrokeWidth="1dp"
+                app:mb_TextColor="@color/dark"
+                app:mb_TextSize="12sp" />
 
         </LinearLayout>
 
@@ -160,13 +160,13 @@
             app:layout_constraintBottom_toTopOf="@id/aboutBase"
             app:layout_constraintEnd_toEndOf="@id/aboutBase"
             app:layout_constraintTop_toTopOf="@id/aboutBase"
-            app:miniButtonBackgroundColor="@color/lightGreen"
-            app:miniButtonCornerRadius="-1dp"
-            app:miniButtonIcon="@raw/github"
-            app:miniButtonIconColor="@color/white"
-            app:miniButtonIconSize="28dp"
-            app:miniButtonShadowColor="@color/lightGreen_40"
-            app:miniButtonShadowSize="16dp" />
+            app:mb_BackgroundColor="@color/lightGreen"
+            app:mb_CornerRadius="-1dp"
+            app:mb_Icon="@raw/github"
+            app:mb_IconColor="@color/white"
+            app:mb_IconSize="28dp"
+            app:mb_ShadowColor="@color/lightGreen_40"
+            app:mb_ShadowSize="16dp" />
 
         <alistar.miniwidgets.imageview.SVGImageView
             android:id="@+id/aboutTextSvg"

@@ -3,6 +3,7 @@ package alistar.miniwidgets.sample
 import alistar.miniwidgets.sample.databinding.ActivityMainBinding
 import alistar.miniwidgets.sample.demo.DemoFragment
 import alistar.miniwidgets.sample.demo.LoadingViewDemoFragment
+import alistar.miniwidgets.sample.demo.MiniButtonDemoFragment
 import alistar.miniwidgets.sample.demo.SVGImageViewDemoFragment
 import alistar.miniwidgets.utils.Utils
 import android.content.Intent
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 val point = it.getPointOnScreen()
                 supportFragmentManager.beginTransaction().add(
                     R.id.fragmentContainer,
-                    SVGImageViewDemoFragment.newInstance(point.x, point.y)
+                    MiniButtonDemoFragment.newInstance(point.x, point.y)
                 ).commit()
             }
 

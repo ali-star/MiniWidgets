@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     private RectF baseRectF = new RectF();
     private RectF animationRectF = new RectF();
     private Rect rect = new Rect();
+    Rect textBoundsRect = new Rect();
     private int shadowSize = 0;
     private int shadowDy = Utils.dipToPix(4);
     private int textSize = Utils.spToPix(14);
@@ -102,31 +104,31 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     private void initAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MiniButton);
         if (text == null)
-            text = typedArray.getString(R.styleable.MiniButton_miniButtonSetText);
-        textSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonTextSize, Utils.spToPix(14));
-        textColor = typedArray.getColor(R.styleable.MiniButton_miniButtonTextColor, Color.WHITE);
+            text = typedArray.getString(R.styleable.MiniButton_mb_SetText);
+        textSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_mb_TextSize, Utils.spToPix(14));
+        textColor = typedArray.getColor(R.styleable.MiniButton_mb_TextColor, Color.WHITE);
 
-        String typefacePath = typedArray.getString(R.styleable.MiniButton_miniButtonTypeface);
+        String typefacePath = typedArray.getString(R.styleable.MiniButton_mb_Typeface);
         if (typefacePath != null)
             typeface = Typeface.createFromAsset(getContext().getAssets(), typefacePath);
 
-        rippleColor = typedArray.getColor(R.styleable.MiniButton_miniButtonRippleColor, rippleColor);
+        rippleColor = typedArray.getColor(R.styleable.MiniButton_mb_RippleColor, rippleColor);
 
         if (backgroundColor == Color.TRANSPARENT)
-            backgroundColor = typedArray.getColor(R.styleable.MiniButton_miniButtonBackgroundColor, Color.TRANSPARENT);
+            backgroundColor = typedArray.getColor(R.styleable.MiniButton_mb_BackgroundColor, Color.TRANSPARENT);
 
-        shadowColor = typedArray.getColor(R.styleable.MiniButton_miniButtonShadowColor, shadowColor);
-        cornerRadius = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonCornerRadius, 0);
-        iconReference = typedArray.getResourceId(R.styleable.MiniButton_miniButtonIcon, 0);
-        shadowSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonShadowSize, 0);
-        strokeColor = typedArray.getColor(R.styleable.MiniButton_miniButtonStrokeColor, strokeColor);
-        strokeSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonStrokeWidth, strokeSize);
-        iconSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonIconSize, iconSize);
-        iconColor = typedArray.getColor(R.styleable.MiniButton_miniButtonIconColor, Color.WHITE);
-        shadowDy = typedArray.getDimensionPixelSize(R.styleable.MiniButton_miniButtonShadowDy, Utils.dipToPix(4));
-        allowFastClick = typedArray.getBoolean(R.styleable.MiniButton_miniButtonAllowFastClick, false);
+        shadowColor = typedArray.getColor(R.styleable.MiniButton_mb_ShadowColor, shadowColor);
+        cornerRadius = typedArray.getDimensionPixelSize(R.styleable.MiniButton_mb_CornerRadius, 0);
+        iconReference = typedArray.getResourceId(R.styleable.MiniButton_mb_Icon, 0);
+        shadowSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_mb_ShadowSize, 0);
+        strokeColor = typedArray.getColor(R.styleable.MiniButton_mb_StrokeColor, strokeColor);
+        strokeSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_mb_StrokeWidth, strokeSize);
+        iconSize = typedArray.getDimensionPixelSize(R.styleable.MiniButton_mb_IconSize, iconSize);
+        iconColor = typedArray.getColor(R.styleable.MiniButton_mb_IconColor, Color.WHITE);
+        shadowDy = typedArray.getDimensionPixelSize(R.styleable.MiniButton_mb_ShadowDy, Utils.dipToPix(4));
+        allowFastClick = typedArray.getBoolean(R.styleable.MiniButton_mb_AllowFastClick, true);
 
-        if (typedArray.getBoolean(R.styleable.MiniButton_miniButtonOpen, true))
+        if (typedArray.getBoolean(R.styleable.MiniButton_mb_Open, true))
             animatedValue = 100;
         else
             animatedValue = 0;
@@ -163,17 +165,16 @@ public class MiniButton extends FrameLayout implements Button, Loading {
             svgImageView = new SVGImageView(getContext());
             svgImageView.setBackgroundColor(Color.TRANSPARENT);
             LayoutParams layoutParams = new LayoutParams(iconSize, iconSize);
-            layoutParams.gravity = Gravity.CENTER;
             svgImageView.setLayoutParams(layoutParams);
             svgImageView.setSvgImageRecourse(iconReference);
             svgImageView.setColor(iconColor);
             addView(svgImageView);
         }
 
-        if (shadowSize != 0)
+        /*if (shadowSize != 0)
             setPadding(shadowSize + strokeSize, (shadowSize - shadowDy) + strokeSize, shadowSize + strokeSize, shadowSize + shadowDy + strokeSize);
         else
-            setPadding(strokeSize, strokeSize, strokeSize, strokeSize);
+            setPadding(strokeSize, strokeSize, strokeSize, strokeSize);*/
 
     }
 
@@ -819,5 +820,45 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         }
         super.onRestoreInstanceState(state);
         invalidate();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        if (text != null)
+            textPaint.getTextBounds(text, 0, text.length(), rect);
+
+        int desiredWidth = (rect.width() > 0 ? rect.width() : Utils.dipToPix(74)) + (shadowSize * 2) + getPaddingLeft() + getPaddingRight();
+        int desiredHeight = (rect.height() > 0 ? rect.height() : Utils.dipToPix(54)) + (shadowSize * 2) + getPaddingTop() + getPaddingBottom();
+
+        setMeasuredDimension(measureDimension(desiredWidth, widthMeasureSpec),
+                measureDimension(desiredHeight, heightMeasureSpec));
+
+        if (svgImageView != null && iconSize > 0) {
+            LayoutParams layoutParams = (LayoutParams) svgImageView.getLayoutParams();
+            layoutParams.topMargin = (getHeight() / 2) - (iconSize / 2) - shadowDy;
+            layoutParams.leftMargin = (getWidth() / 2) - (iconSize / 2);
+        }
+    }
+
+    private int measureDimension(int desiredSize, int measureSpec) {
+        int result;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        if (specMode == MeasureSpec.EXACTLY) {
+            result = specSize;
+        } else {
+            result = desiredSize;
+            if (specMode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, specSize);
+            }
+        }
+
+        if (result < desiredSize){
+            Log.e("ChartView", "The view is too small, the content might get cut");
+        }
+        return result;
     }
 }

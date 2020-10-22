@@ -2,28 +2,28 @@
 <resources>
 
     <declare-styleable name="MiniButton">
-        <attr name="miniButtonWidth" format="dimension"/>
-        <attr name="miniButtonHeight" format="dimension"/>
-        <attr name="miniButtonSetText" format="string"/>
-        <attr name="miniButtonTextColor" format="color"/>
-        <attr name="miniButtonTextSize" format="dimension"/>
-        <attr name="miniButtonRippleColor" format="color"/>
-        <attr name="miniButtonBackgroundColor" format="color"/>
-        <attr name="miniButtonShadowColor" format="color"/>
-        <attr name="miniButtonShadowSize" format="dimension"/>
-        <attr name="miniButtonShadowDy" format="dimension"/>
-        <attr name="miniButtonIcon" format="reference"/>
-        <attr name="miniButtonIconColor" format="color"/>
-        <attr name="miniButtonIconSize" format="dimension"/>
-        <attr name="miniButtonCornerRadius" format="dimension"/>
-        <attr name="miniButtonStrokeColor" format="color"/>
-        <attr name="miniButtonStrokeWidth" format="dimension"/>
-        <attr name="miniButtonTypeface" format="string"/>
-        <attr name="miniButtonLabelTypeface" format="string"/>
-        <attr name="miniButtonSetLabel" format="string"/>
-        <attr name="miniButtonLabelSize" format="dimension"/>
-        <attr name="miniButtonOpen" format="boolean"/>
-        <attr name="miniButtonAllowFastClick" format="boolean"/>
+        <attr name="mb_Width" format="dimension"/>
+        <attr name="mb_Height" format="dimension"/>
+        <attr name="mb_SetText" format="string"/>
+        <attr name="mb_TextColor" format="color"/>
+        <attr name="mb_TextSize" format="dimension"/>
+        <attr name="mb_RippleColor" format="color"/>
+        <attr name="mb_BackgroundColor" format="color"/>
+        <attr name="mb_ShadowColor" format="color"/>
+        <attr name="mb_ShadowSize" format="dimension"/>
+        <attr name="mb_ShadowDy" format="dimension"/>
+        <attr name="mb_Icon" format="reference"/>
+        <attr name="mb_IconColor" format="color"/>
+        <attr name="mb_IconSize" format="dimension"/>
+        <attr name="mb_CornerRadius" format="dimension"/>
+        <attr name="mb_StrokeColor" format="color"/>
+        <attr name="mb_StrokeWidth" format="dimension"/>
+        <attr name="mb_Typeface" format="string"/>
+        <attr name="mb_LabelTypeface" format="string"/>
+        <attr name="mb_SetLabel" format="string"/>
+        <attr name="mb_LabelSize" format="dimension"/>
+        <attr name="mb_Open" format="boolean"/>
+        <attr name="mb_AllowFastClick" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="SVGImageView">
