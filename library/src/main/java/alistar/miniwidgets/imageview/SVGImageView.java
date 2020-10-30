@@ -19,8 +19,8 @@ public class SVGImageView extends View {
     private int svgImageRecourse = -1;
     private SvgUtils svgUtils;
     private List<SvgUtils.SvgPath> paths;
-    private Paint svgPaint = new Paint();
-    private Paint shadowPaint = new Paint();
+    private final Paint svgPaint = new Paint();
+    private final Paint shadowPaint = new Paint();
     private int size = -1;
     private int color = 0;
     private int shadowRadius = 0;

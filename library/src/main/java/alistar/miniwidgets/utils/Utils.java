@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.TypedValue;
 
@@ -50,6 +51,15 @@ public class Utils {
         canvas.save();
         canvas.translate(l, t);
         canvas.drawText(text, x, y, paint);
+        canvas.restore();
+    }
+
+    public static void drawCenterPath(Path path, Rect rect, float l, float t, Canvas canvas, Paint paint) {
+        float cHeight = rect.height();
+        float cWidth = rect.width();
+        canvas.save();
+        canvas.translate(l, t);
+        canvas.drawPath(path, paint);
         canvas.restore();
     }
 

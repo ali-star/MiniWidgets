@@ -21,7 +21,7 @@ public class Ripple extends View {
 
     private Paint paint = new Paint();
     private float circleRadius = 0;
-    public static final float CIRCLE_END_RADIUS = Utils.dipToPix(150);
+    private float circleEndRadius = Utils.dipToPix(150);
     private OnFinishRipplingListener onFinishRipplingListener;
     private int color = Color.parseColor("#10000000");
     private CircOutInterpolator circOutInterpolator = new CircOutInterpolator();
@@ -41,17 +41,16 @@ public class Ripple extends View {
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL);
         paint.setColor(color);
-        setLayoutParams(new LayoutParams((int) (CIRCLE_END_RADIUS * 2), (int) (CIRCLE_END_RADIUS * 2)));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, circleRadius, paint);
+        canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f, circleRadius, paint);
     }
 
     public void doRipple() {
-        ObjectAnimator rippleAnimator = ObjectAnimator.ofFloat(this, radiusProperty, circleRadius, CIRCLE_END_RADIUS);
+        ObjectAnimator rippleAnimator = ObjectAnimator.ofFloat(this, radiusProperty, circleRadius, circleEndRadius);
         rippleAnimator.setDuration(400);
         rippleAnimator.setInterpolator(circOutInterpolator);
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(this, "alpha", 1, 0);
@@ -75,6 +74,15 @@ public class Ripple extends View {
     public void setRadius(float radius) {
         circleRadius = radius;
         invalidate();
+    }
+
+    public void setCircleEndRadius(float circleEndRadius) {
+        this.circleEndRadius = circleEndRadius;
+        setLayoutParams(new LayoutParams((int) (circleEndRadius * 2), (int) (circleEndRadius * 2)));
+    }
+
+    public float getCircleEndRadius() {
+        return circleEndRadius;
     }
 
     private Property<Ripple, Float> radiusProperty = new Property<Ripple, Float>(Float.class, "radius") {

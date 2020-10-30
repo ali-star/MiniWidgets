@@ -1,7 +1,5 @@
 package alistar.miniwidgets.button;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -19,13 +17,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import java.util.List;
+
 import alistar.miniwidgets.R;
 import alistar.miniwidgets.imageview.SVGImageView;
+import alistar.miniwidgets.imageview.SvgUtils;
 import alistar.miniwidgets.loading.Loading;
 import alistar.miniwidgets.loading.LoadingView;
 import alistar.miniwidgets.utils.CircOutInterpolator;
@@ -33,14 +35,13 @@ import alistar.miniwidgets.utils.Utils;
 
 public class MiniButton extends FrameLayout implements Button, Loading {
 
-    private Paint shadowPaint = new Paint();
-    private Paint strokePaint = new Paint();
-    private Paint textPaint = new Paint();
-    private Path path = new Path();
-    private RectF baseRectF = new RectF();
-    private RectF animationRectF = new RectF();
-    private Rect rect = new Rect();
-    Rect textBoundsRect = new Rect();
+    private final Paint shadowPaint = new Paint();
+    private final Paint strokePaint = new Paint();
+    private final Paint textPaint = new Paint();
+    private final Path path = new Path();
+    private final RectF baseRectF = new RectF();
+    private final RectF animationRectF = new RectF();
+    private final Rect textRect = new Rect();
     private int shadowSize = 0;
     private int shadowDy = Utils.dipToPix(4);
     private int textSize = Utils.spToPix(14);
@@ -57,22 +58,19 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     private int backgroundColor = Color.TRANSPARENT;
     private int shadowColor = Color.parseColor("#4Dfe3249");
     private int iconReference = 0;
-    private SVGImageView svgImageView;
     private int strokeSize = 0;
     private int strokeColor = Color.BLACK;
     private int iconColor = Color.BLACK;
     private int iconSize = Utils.dipToPix(36);
-    private Paint clipPaint = new Paint();
-    private Path baseClipPath = new Path();
-    private Path animationClipPath = new Path();
-    private PorterDuffXfermode porterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
+    private final Paint clipPaint = new Paint();
+    private final Path baseClipPath = new Path();
+    private final Path animationClipPath = new Path();
+    private final PorterDuffXfermode porterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
     private ValueAnimator openAnimator, closeAnimator;
     private From animateFrom = From.CENTER;
     private From openFrom = From.CENTER;
     private From closeFrom = From.CENTER;
     private int animatedValue = 100;
-    private boolean opening = false;
-    private boolean closing = false;
     private ValueAnimator changeColorAnimator;
     private boolean allowFastClick = false;
     private long lastTimeClicked;
@@ -82,7 +80,11 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     float currentTouchX, currentTouchY;
     private boolean isLongCLickListenerSet = false;
     private boolean longClicked = false;
-    private CircOutInterpolator circOutInterpolator = new CircOutInterpolator();
+    private final CircOutInterpolator circOutInterpolator = new CircOutInterpolator();
+    private SvgUtils svgUtils;
+    private List<SvgUtils.SvgPath> paths;
+    private final Paint iconPaint = new Paint();
+    private boolean showIcon = true;
 
     public MiniButton(Context context) {
         super(context);
@@ -161,21 +163,19 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         textPaint.setTextSize(textSize);
         textPaint.setTypeface(typeface);
 
+        iconPaint.setAntiAlias(true);
+        iconPaint.setStyle(Paint.Style.FILL);
+        iconPaint.setColor(iconColor);
+
+        initIcon();
+    }
+
+    private void initIcon() {
         if (iconReference != 0) {
-            svgImageView = new SVGImageView(getContext());
-            svgImageView.setBackgroundColor(Color.TRANSPARENT);
-            LayoutParams layoutParams = new LayoutParams(iconSize, iconSize);
-            svgImageView.setLayoutParams(layoutParams);
-            svgImageView.setSvgImageRecourse(iconReference);
-            svgImageView.setColor(iconColor);
-            addView(svgImageView);
+            svgUtils = new SvgUtils(iconPaint);
+            svgUtils.load(getContext(), iconReference);
+            paths = svgUtils.getPathsForViewport(iconSize, iconSize);
         }
-
-        /*if (shadowSize != 0)
-            setPadding(shadowSize + strokeSize, (shadowSize - shadowDy) + strokeSize, shadowSize + strokeSize, shadowSize + shadowDy + strokeSize);
-        else
-            setPadding(strokeSize, strokeSize, strokeSize, strokeSize);*/
-
     }
 
     @Override
@@ -199,8 +199,8 @@ public class MiniButton extends FrameLayout implements Button, Loading {
                 left = with - (step * animatedValue);
                 break;
             case CENTER:
-                left = (with / 2) - (step * (animatedValue / 2));
-                right = (with / 2) + (step * (animatedValue / 2));
+                left = (with / 2) - (step * (animatedValue / 2.0f));
+                right = (with / 2) + (step * (animatedValue / 2.0f));
                 break;
         }
 
@@ -210,10 +210,19 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         path.addRoundRect(baseRectF, cornerRadius >= 0 ? cornerRadius : baseRectF.bottom / 2, cornerRadius >= 0 ? cornerRadius : baseRectF.bottom / 2, Path.Direction.CW);
         canvas.drawPath(path, shadowPaint);
 
-        rect.set((int) baseRectF.left, (int) baseRectF.top, (int) baseRectF.right, (int) baseRectF.bottom);
+        textRect.set((int) baseRectF.left, (int) baseRectF.top, (int) baseRectF.right, (int) baseRectF.bottom);
 
         if (text != null)
-            Utils.drawCenterText(text, rect, baseRectF.left, baseRectF.top, canvas, textPaint);
+            Utils.drawCenterText(text, textRect, baseRectF.left, baseRectF.top, canvas, textPaint);
+
+        if (iconReference != 0 && showIcon) {
+            canvas.save();
+            canvas.translate(baseRectF.left + (baseRectF.width() / 2f - iconSize / 2f), baseRectF.top + (baseRectF.height() / 2f - iconSize / 2f));
+            for (SvgUtils.SvgPath sPath : paths) {
+                canvas.drawPath(sPath.getPath(), iconPaint);
+            }
+            canvas.restore();
+        }
 
         if (strokeSize > 0)
             canvas.drawPath(path, strokePaint);
@@ -288,8 +297,8 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         invalidate();
     }
 
-    private Handler longClickHandler = new Handler();
-    private Runnable longClickRunnable = new Runnable() {
+    private final Handler longClickHandler = new Handler();
+    private final Runnable longClickRunnable = new Runnable() {
         @Override
         public void run() {
             firstTouch = false;
@@ -310,6 +319,9 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         if (event.getAction() == MotionEvent.ACTION_DOWN & !firstTouch) {
             if (alphaRecView == null) {
                 alphaRecView = new AlphaRecView(getContext());
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((int) baseRectF.width(), (int) baseRectF.height());
+                alphaRecView.setLayoutParams(layoutParams);
+
                 alphaRecView.setColor(rippleColor);
                 alphaRecView.setOnFinishAnimatingListener(new AlphaRecView.OnFinishAnimatingListener() {
 
@@ -331,9 +343,12 @@ public class MiniButton extends FrameLayout implements Button, Loading {
                 longClickHandler.removeCallbacks(longClickRunnable);
                 longClickHandler.postDelayed(longClickRunnable, 500);
             }
+
+            super.dispatchTouchEvent(event);
+            return true;
         }
 
-        if (event.getAction() == MotionEvent.ACTION_UP & firstTouch) {
+        if (event.getAction() == MotionEvent.ACTION_UP && firstTouch) {
             doRipple(currentTouchX, currentTouchY);
 
             firstTouch = false;
@@ -348,7 +363,6 @@ public class MiniButton extends FrameLayout implements Button, Loading {
             doRipple(event.getX(), event.getY());
             firstTouch = false;
             longClickHandler.removeCallbacks(longClickRunnable);
-            return super.dispatchTouchEvent(event);
         }
 
         return super.dispatchTouchEvent(event);
@@ -359,9 +373,12 @@ public class MiniButton extends FrameLayout implements Button, Loading {
             alphaRecView.endAlphaAnimation();
         }
         final Ripple ripple = new Ripple(getContext());
+        ripple.setCircleEndRadius(Math.max(getWidth(), getHeight()));
         ripple.setRippleColor(rippleColor);
-        ripple.setX(x - Ripple.CIRCLE_END_RADIUS);
-        ripple.setY(y - Ripple.CIRCLE_END_RADIUS);
+        ripple.setPivotX(x);
+        ripple.setPivotY(y);
+        ripple.setX(x - ripple.getCircleEndRadius());
+        ripple.setY(y - ripple.getCircleEndRadius());
         ripple.setOnFinishRippleingListner(new Ripple.OnFinishRipplingListener() {
 
             @Override
@@ -428,27 +445,13 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     @Override
     public void setIcon(int icon) {
         this.iconReference = icon;
-        if (svgImageView != null) {
-            svgImageView.setSvgImageRecourse(icon);
-        } else {
-            svgImageView = new SVGImageView(getContext());
-            LayoutParams layoutParams = new LayoutParams(iconSize, iconSize);
-            layoutParams.gravity = Gravity.CENTER;
-            svgImageView.setLayoutParams(layoutParams);
-            svgImageView.setSvgImageRecourse(iconReference);
-            svgImageView.setColor(iconColor);
-            addView(svgImageView);
-        }
+        initIcon();
     }
 
     @Override
     public void setIconSize(int iconSize) {
         this.iconSize = iconSize;
-        if (svgImageView != null) {
-            svgImageView.getLayoutParams().width = iconSize;
-            svgImageView.getLayoutParams().height = iconSize;
-            svgImageView.requestLayout();
-        }
+        initIcon();
     }
 
     @Override
@@ -510,7 +513,8 @@ public class MiniButton extends FrameLayout implements Button, Loading {
                 loadingView.setBackgroundStrokeWidth(Utils.dipToPix(4));
                 loadingView.setProgressStrokeWidth(Utils.dipToPix(4));
                 LayoutParams layoutParams = new LayoutParams(Utils.dipToPix(30), Utils.dipToPix(30));
-                layoutParams.gravity = Gravity.CENTER;
+                layoutParams.topMargin = (int) (baseRectF.top + ((baseRectF.height() / 2.0f) - (layoutParams.height / 2.0f)));
+                layoutParams.leftMargin = (int) (baseRectF.left + ((baseRectF.width() / 2.0f) - (layoutParams.width / 2.0f)));
                 loadingView.setLayoutParams(layoutParams);
                 addView(loadingView);
             }
@@ -518,18 +522,22 @@ public class MiniButton extends FrameLayout implements Button, Loading {
                 textHolder = text;
             setText(null);
             if (iconReference != 0)
-                svgImageView.setVisibility(View.GONE);
+                showIcon = false;
             loadingView.setVisibility(VISIBLE);
             loadingView.setLoading(true);
         } else {
             if (loadingView == null) return;
             loadingView.setVisibility(GONE);
             if (iconReference != 0)
-                svgImageView.setVisibility(View.VISIBLE);
+                showIcon = true;
             if (textHolder != null)
                 setText(textHolder);
             textHolder = null;
         }
+    }
+
+    public boolean isLoading() {
+        return isLoading;
     }
 
     @Override
@@ -606,7 +614,6 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         if (closeAnimator != null && closeAnimator.isRunning())
             closeAnimator.cancel();
         animateFrom = from;
-        opening = true;
         if (openAnimator == null) {
             openAnimator = ValueAnimator.ofInt(animatedValue, 100);
             openAnimator.setDuration(250);
@@ -619,19 +626,6 @@ public class MiniButton extends FrameLayout implements Button, Loading {
                     float alpha = ((1f / 100f) * (float) animatedValue);
                     setAlpha(alpha);
                     invalidate();
-                }
-            });
-            openAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    super.onAnimationCancel(animation);
-                    opening = false;
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    opening = false;
                 }
             });
         }
@@ -650,7 +644,6 @@ public class MiniButton extends FrameLayout implements Button, Loading {
         if (openAnimator != null && openAnimator.isRunning())
             openAnimator.cancel();
         animateFrom = from;
-        closing = true;
         if (closeAnimator == null) {
             closeAnimator = ValueAnimator.ofInt(animatedValue, 0);
             closeAnimator.setDuration(250);
@@ -663,19 +656,6 @@ public class MiniButton extends FrameLayout implements Button, Loading {
                     float alpha = ((1f / 100f) * (float) animatedValue);
                     setAlpha(alpha);
                     invalidate();
-                }
-            });
-            closeAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    super.onAnimationCancel(animation);
-                    closing = false;
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    closing = false;
                 }
             });
         }
@@ -727,8 +707,7 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     @Override
     public void setIconColor(int iconColor) {
         this.iconColor = iconColor;
-        if (svgImageView != null)
-            svgImageView.setColor(iconColor);
+        iconPaint.setColor(iconColor);
     }
 
     @Override
@@ -823,42 +802,12 @@ public class MiniButton extends FrameLayout implements Button, Loading {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        if (text != null)
-            textPaint.getTextBounds(text, 0, text.length(), rect);
-
-        int desiredWidth = (rect.width() > 0 ? rect.width() : Utils.dipToPix(74)) + (shadowSize * 2) + getPaddingLeft() + getPaddingRight();
-        int desiredHeight = (rect.height() > 0 ? rect.height() : Utils.dipToPix(54)) + (shadowSize * 2) + getPaddingTop() + getPaddingBottom();
-
-        setMeasuredDimension(measureDimension(desiredWidth, widthMeasureSpec),
-                measureDimension(desiredHeight, heightMeasureSpec));
-
-        if (svgImageView != null && iconSize > 0) {
-            LayoutParams layoutParams = (LayoutParams) svgImageView.getLayoutParams();
-            layoutParams.topMargin = (getHeight() / 2) - (iconSize / 2) - shadowDy;
-            layoutParams.leftMargin = (getWidth() / 2) - (iconSize / 2);
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (paths != null) {
+            paths.clear();
+            paths = null;
+            svgUtils = null;
         }
-    }
-
-    private int measureDimension(int desiredSize, int measureSpec) {
-        int result;
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize = MeasureSpec.getSize(measureSpec);
-
-        if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize;
-        } else {
-            result = desiredSize;
-            if (specMode == MeasureSpec.AT_MOST) {
-                result = Math.min(result, specSize);
-            }
-        }
-
-        if (result < desiredSize){
-            Log.e("ChartView", "The view is too small, the content might get cut");
-        }
-        return result;
     }
 }

@@ -29,7 +29,6 @@ public class AlphaRecView extends View {
 
     private void init() {
         setBackgroundColor(color);
-        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
     public void startAlphaAnimation() {

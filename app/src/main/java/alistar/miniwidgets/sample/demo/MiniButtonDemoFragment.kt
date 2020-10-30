@@ -2,19 +2,13 @@ package alistar.miniwidgets.sample.demo
 
 import alistar.miniwidgets.sample.R
 import alistar.miniwidgets.sample.databinding.MiniButtonDemoFragmentBinding
-import alistar.miniwidgets.sample.databinding.SvgImageViewDemoFragmentBinding
-import alistar.miniwidgets.utils.CircOutInterpolator
 import alistar.miniwidgets.utils.Utils
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.fragment.app.Fragment
-import kotlin.math.abs
 
 class MiniButtonDemoFragment : DemoFragment() {
 
@@ -36,7 +30,45 @@ class MiniButtonDemoFragment : DemoFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.mini_button_demo_fragment, container, false)
         binding = MiniButtonDemoFragmentBinding.bind(view).apply {
-                startOpenAnimation(circle, contentsLayout)
+            startOpenAnimation(circle, contentsLayout)
+
+            greenColorButton.setOnClickListener {
+                miniButton.changeColor(Color.parseColor("#4AD4C9"))
+            }
+
+            orangeColorButton.setOnClickListener {
+                miniButton.changeColor(Color.parseColor("#FF8772"))
+            }
+
+            purpleColorButton.setOnClickListener {
+                miniButton.changeColor(Color.parseColor("#B451FC"))
+            }
+
+            blueColorButton.setOnClickListener {
+                miniButton.changeColor(Color.parseColor("#6CEAFB"))
+            }
+
+            darkColorButton.setOnClickListener {
+                miniButton.changeColor(Color.parseColor("#455077"))
+            }
+
+            shadowRadiusSeekBar.apply {
+                max = 24
+                setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        miniButton.shadowSize = Utils.dipToPix(progress)
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+                })
+            }
         }
         return view
     }
