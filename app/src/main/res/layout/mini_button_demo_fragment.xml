@@ -31,11 +31,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:mb_SetText="Mini Button"
-                app:mb_BackgroundColor="@color/black"
-                android:padding="16dp"
+                app:mb_BackgroundColor="#FF8772"
                 app:mb_CornerRadius="12dp"
                 app:mb_ShadowSize="16dp"
-                app:mb_ShadowColor="@color/black_25"/>
+                app:mb_ShadowColor="#66FF8772"/>
 
             <TextView
                 android:id="@+id/colorTitle"
@@ -133,6 +132,65 @@
                 app:layout_constraintTop_toBottomOf="@+id/shadowTitle">
 
                 <LinearLayout
+                    android:id="@+id/shadowColorsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/miniButton"
+                    app:layout_constraintStart_toStartOf="@id/miniButton"
+                    app:layout_constraintTop_toBottomOf="@+id/colorTitle">
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/sh_greenColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#4AD4C9" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/sh_orangeColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#FF8772" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/sh_purpleColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#B451FC" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/sh_blueColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#6CEAFB" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/sh_darkColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#455077" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:gravity="center_vertical"
@@ -149,32 +207,13 @@
                     <SeekBar
                         android:id="@+id/shadowRadiusSeekBar"
                         android:layout_width="320dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:progress="16"/>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:text="Dx"
-                        android:textSize="12sp"
-                        android:textColor="@color/dark"
-                        android:gravity="center"/>
-
-                    <SeekBar
-                        android:id="@+id/shadowDxSeekBar"
-                        android:layout_width="320dp"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_marginTop="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:gravity="center_vertical"
@@ -189,9 +228,10 @@
                         android:gravity="center"/>
 
                     <SeekBar
-                        android:id="@+id/shadowDySeekBar"
+                        android:id="@+id/shadowDyRadiusSeekBar"
                         android:layout_width="320dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:progress="4"/>
 
                 </LinearLayout>
 

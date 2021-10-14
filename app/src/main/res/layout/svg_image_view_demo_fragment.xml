@@ -16,273 +16,278 @@
             android:layout_gravity="center"
             android:background="@drawable/circle" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/contentsLayout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0">
+            android:layout_height="match_parent">
 
-            <alistar.miniwidgets.imageview.SVGImageView
-                android:id="@+id/SVGImageView"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_marginTop="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:siv_src="@raw/logo_dark"
-                app:siv_srcGradientEnd="BottomRight"
-                app:siv_srcGradientStartColor="#4AD4C9"
-                app:siv_srcGradientEndColor="#239ECA"
-                app:siv_srcGradientStart="TopLeft" />
-
-            <TextView
-                android:id="@+id/gradientTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="GRADIENT"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@color/black_20"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/SVGImageView" />
-
-            <LinearLayout
-                android:id="@+id/gradientsContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/SVGImageView"
-                app:layout_constraintStart_toStartOf="@id/SVGImageView"
-                app:layout_constraintTop_toBottomOf="@+id/gradientTitle">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0">
 
                 <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/greenGradientButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
+                    android:id="@+id/SVGImageView"
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:siv_src="@raw/logo_dark"
                     app:siv_srcGradientEnd="BottomRight"
+                    app:siv_srcGradientStartColor="#4AD4C9"
                     app:siv_srcGradientEndColor="#239ECA"
-                    app:siv_srcGradientStart="TopLeft"
-                    app:siv_srcGradientStartColor="#4AD4C9" />
+                    app:siv_srcGradientStart="TopLeft" />
 
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/orangeGradientButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcGradientEnd="BottomRight"
-                    app:siv_srcGradientEndColor="#FF6F9E"
-                    app:siv_srcGradientStart="TopLeft"
-                    app:siv_srcGradientStartColor="#FF8772" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/purpleGradientButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcGradientEnd="BottomRight"
-                    app:siv_srcGradientEndColor="#7266FC"
-                    app:siv_srcGradientStart="TopLeft"
-                    app:siv_srcGradientStartColor="#B451FC" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/blueGradientButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcGradientEnd="BottomRight"
-                    app:siv_srcGradientEndColor="#0A52F3"
-                    app:siv_srcGradientStart="TopLeft"
-                    app:siv_srcGradientStartColor="#6CEAFB" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/darkGradientButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcGradientEnd="BottomRight"
-                    app:siv_srcGradientEndColor="#212941"
-                    app:siv_srcGradientStart="TopLeft"
-                    app:siv_srcGradientStartColor="#455077" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/colorTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:text="COLOR"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@color/black_20"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gradientsContainer" />
-
-            <LinearLayout
-                android:id="@+id/colorsContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/SVGImageView"
-                app:layout_constraintStart_toStartOf="@id/SVGImageView"
-                app:layout_constraintTop_toBottomOf="@+id/colorTitle">
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/greenColorButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcColor="#4AD4C9" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/orangeColorButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcColor="#FF8772" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/purpleColorButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcColor="#B451FC" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/blueColorButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcColor="#6CEAFB" />
-
-                <alistar.miniwidgets.imageview.SVGImageView
-                    android:id="@+id/darkColorButton"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    app:siv_src="@raw/square"
-                    app:siv_srcColor="#455077" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/shadowTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:text="SHADOW"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@color/black_20"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/colorsContainer" />
-
-            <LinearLayout
-                android:id="@+id/shadowContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/SVGImageView"
-                app:layout_constraintStart_toStartOf="@id/SVGImageView"
-                app:layout_constraintTop_toBottomOf="@+id/shadowTitle">
+                <TextView
+                    android:id="@+id/gradientTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="GRADIENT"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/black_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/SVGImageView" />
 
                 <LinearLayout
+                    android:id="@+id/gradientsContainer"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/SVGImageView"
+                    app:layout_constraintStart_toStartOf="@id/SVGImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/gradientTitle">
 
-                    <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:text="R"
-                        android:textSize="12sp"
-                        android:textColor="@color/dark"
-                        android:gravity="center"/>
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/greenGradientButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcGradientEnd="BottomRight"
+                        app:siv_srcGradientEndColor="#239ECA"
+                        app:siv_srcGradientStart="TopLeft"
+                        app:siv_srcGradientStartColor="#4AD4C9" />
 
-                    <SeekBar
-                        android:id="@+id/shadowRadiusSeekBar"
-                        android:layout_width="320dp"
-                        android:layout_height="wrap_content"/>
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/orangeGradientButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcGradientEnd="BottomRight"
+                        app:siv_srcGradientEndColor="#FF6F9E"
+                        app:siv_srcGradientStart="TopLeft"
+                        app:siv_srcGradientStartColor="#FF8772" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/purpleGradientButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcGradientEnd="BottomRight"
+                        app:siv_srcGradientEndColor="#7266FC"
+                        app:siv_srcGradientStart="TopLeft"
+                        app:siv_srcGradientStartColor="#B451FC" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/blueGradientButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcGradientEnd="BottomRight"
+                        app:siv_srcGradientEndColor="#0A52F3"
+                        app:siv_srcGradientStart="TopLeft"
+                        app:siv_srcGradientStartColor="#6CEAFB" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/darkGradientButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcGradientEnd="BottomRight"
+                        app:siv_srcGradientEndColor="#212941"
+                        app:siv_srcGradientStart="TopLeft"
+                        app:siv_srcGradientStartColor="#455077" />
 
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/colorTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="COLOR"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/black_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gradientsContainer" />
 
-                    <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:text="Dx"
-                        android:textSize="12sp"
-                        android:textColor="@color/dark"
-                        android:gravity="center"/>
+                <LinearLayout
+                    android:id="@+id/colorsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/SVGImageView"
+                    app:layout_constraintStart_toStartOf="@id/SVGImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/colorTitle">
 
-                    <SeekBar
-                        android:id="@+id/shadowDxSeekBar"
-                        android:layout_width="320dp"
-                        android:layout_height="wrap_content"/>
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/greenColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#4AD4C9" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/orangeColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#FF8772" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/purpleColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#B451FC" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/blueColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#6CEAFB" />
+
+                    <alistar.miniwidgets.imageview.SVGImageView
+                        android:id="@+id/darkColorButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:siv_src="@raw/square"
+                        app:siv_srcColor="#455077" />
 
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/shadowTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="SHADOW"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/black_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/colorsContainer" />
 
-                    <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:text="Dy"
-                        android:textSize="12sp"
-                        android:textColor="@color/dark"
-                        android:gravity="center"/>
+                <LinearLayout
+                    android:id="@+id/shadowContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/SVGImageView"
+                    app:layout_constraintStart_toStartOf="@id/SVGImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/shadowTitle">
 
-                    <SeekBar
-                        android:id="@+id/shadowDySeekBar"
-                        android:layout_width="320dp"
-                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:text="R"
+                            android:textSize="12sp"
+                            android:textColor="@color/dark"
+                            android:gravity="center"/>
+
+                        <SeekBar
+                            android:id="@+id/shadowRadiusSeekBar"
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:text="Dx"
+                            android:textSize="12sp"
+                            android:textColor="@color/dark"
+                            android:gravity="center"/>
+
+                        <SeekBar
+                            android:id="@+id/shadowDxSeekBar"
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:text="Dy"
+                            android:textSize="12sp"
+                            android:textColor="@color/dark"
+                            android:gravity="center"/>
+
+                        <SeekBar
+                            android:id="@+id/shadowDySeekBar"
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
     </FrameLayout>
 </layout>

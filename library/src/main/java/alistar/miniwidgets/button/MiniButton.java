@@ -320,6 +320,8 @@ public class MiniButton extends FrameLayout implements Button, Loading {
             if (alphaRecView == null) {
                 alphaRecView = new AlphaRecView(getContext());
                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((int) baseRectF.width(), (int) baseRectF.height());
+                layoutParams.topMargin = (int) baseRectF.top;
+                layoutParams.leftMargin = (int) baseRectF.left;
                 alphaRecView.setLayoutParams(layoutParams);
 
                 alphaRecView.setColor(rippleColor);

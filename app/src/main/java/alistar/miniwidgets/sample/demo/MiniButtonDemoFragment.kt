@@ -52,6 +52,26 @@ class MiniButtonDemoFragment : DemoFragment() {
                 miniButton.changeColor(Color.parseColor("#455077"))
             }
 
+            shGreenColorButton.setOnClickListener {
+                miniButton.shadowColor = Color.parseColor("#664AD4C9")
+            }
+
+            shOrangeColorButton.setOnClickListener {
+                miniButton.shadowColor = Color.parseColor("#66FF8772")
+            }
+
+            shPurpleColorButton.setOnClickListener {
+                miniButton.shadowColor = Color.parseColor("#66B451FC")
+            }
+
+            shBlueColorButton.setOnClickListener {
+                miniButton.shadowColor = Color.parseColor("#666CEAFB")
+            }
+
+            shDarkColorButton.setOnClickListener {
+                miniButton.shadowColor = Color.parseColor("#66455077")
+            }
+
             shadowRadiusSeekBar.apply {
                 max = 24
                 setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -61,6 +81,24 @@ class MiniButtonDemoFragment : DemoFragment() {
                         fromUser: Boolean
                     ) {
                         miniButton.shadowSize = Utils.dipToPix(progress)
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+                })
+            }
+
+            shadowDyRadiusSeekBar.apply {
+                max = 16
+                setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        miniButton.shadowDy = Utils.dipToPix(progress)
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
